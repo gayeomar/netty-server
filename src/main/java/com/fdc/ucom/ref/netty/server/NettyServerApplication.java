@@ -1,4 +1,4 @@
-package com.nettyserver;
+package com.fdc.ucom.ref.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,23 +10,19 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
-public class DiscardserverApplication {
+public class NettyServerApplication {
     static final int PORT = 8080;
 
     public static void main(String[] args) {
-//        SpringApplication.run(DiscardserverApplication.class, args);
-        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(DiscardserverApplication.class)
-                .web(false)
-                .run(args);
+        SpringApplication.run(NettyServerApplication.class, args);
 
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -40,7 +36,7 @@ public class DiscardserverApplication {
                         public void initChannel(SocketChannel ch) {
                             ChannelPipeline p = ch.pipeline();
 
-                            p.addLast(new DiscardServerHandler());
+                            p.addLast(new NettyServerHandler());
                         }
                     });
 
